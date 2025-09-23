@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/akerl/syncgithub/utils"
+	"github.com/akerl/syncgithub/repos"
 	"github.com/spf13/cobra"
 )
 
@@ -11,17 +11,17 @@ func updateRunner(cmd *cobra.Command, _ []string) error {
 		return err
 	}
 
-	config, err := utils.LoadConfig(c)
+	config, err := repos.LoadConfig(c)
 	if err != nil {
 		return err
 	}
 
-	repos, err := utils.FilteredRepos(config)
+	r, err := repos.FilteredRepos(config)
 	if err != nil {
 		return err
 	}
 
-	return utils.HandleRepos(config, repos)
+	return repos.HandleRepos(config, r)
 }
 
 var updateCmd = &cobra.Command{
